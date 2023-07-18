@@ -1,13 +1,15 @@
-const mongoDb = require('mongodb')
+const mongoDb = require('mongodb');
+const { use } = require('../routes/admin');
 const getDb = require('../util/database').getDb;
 
 class Product {
-  constructor (title, price, description, imageUrl, id) {
+  constructor (title, price, description, imageUrl, id, userId) {
     this.title =  title;
     this.price= price;
     this.description = description;
     this.imageUrl = imageUrl;
     this._id = id ? new mongoDb.ObjectId(id) : null
+    this.userId = userId
   } 
 
   save() {
