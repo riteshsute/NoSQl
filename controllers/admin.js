@@ -1,4 +1,4 @@
-
+const mongoDb = require('mongodb');
 const Product = require('../models/product');
 
 
@@ -88,11 +88,16 @@ exports.getProducts = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  console.log(prodId, 'in the controller')
+  console.log('Product ID:', prodId);
+  console.log('Type of Product ID:', typeof prodId);
+  console.log('Product ID ObjectId:', new mongoDb.ObjectId(prodId));
   Product.deleteById(prodId)
     .then(() => {
       console.log('DESTROYED PRODUCT');
       res.redirect('/admin/products');
     })
-    .catch(err => console.log(err));
+    .catch(err => { 
+      console.log(err)
+      res.redirect('/error');
+    });
 };

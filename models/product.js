@@ -9,7 +9,7 @@ class Product {
     this.description = description;
     this.imageUrl = imageUrl;
     this._id = id ? new mongoDb.ObjectId(id) : null
-    this.userId = userId
+    this.userId = userId;
   } 
 
   save() {
@@ -52,11 +52,14 @@ class Product {
   const db = getDb();
   return db
     .collection('products')
-    .find({_id:  new mongoDb.ObjectId(prodId)})
-    .next()
+    .find({ _id:  new mongoDb.ObjectId(prodId) })
+    .next() 
     .then(product => {
-      console.log(product)
-      return product
+      if (!product) {
+        throw new Error('Product not found');
+      }
+      console.log(product); 
+      return product;
     })
     .catch(err => { 
       console.log(err);
