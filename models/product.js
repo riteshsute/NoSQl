@@ -69,7 +69,8 @@ class Product {
   static deleteById(prodId) {
     console.log(prodId, 'kkkkkk')
     const db = getDb();
-    db.collection('products')
+    return db
+    .collection('products')
     .deleteOne({ _id: new mongoDb.ObjectId(prodId)})
     .then(result => {
       console.log('Deleted')
