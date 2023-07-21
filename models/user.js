@@ -52,6 +52,16 @@ userSchema.methods.removeFromCart = function(productId) {
       this.cart.items = updatedCartItems
       return this.save();
     }
+
+  userSchema.methods.addOrder = function() {
+        this.cart = { items: [] };
+        return db
+        .collection('users')
+        .updateOne(
+          { _id: new ObjectId(this._id)}, 
+          { $set: { cart: { items: [] }} }
+        )
+  }
   
 module.exports = mongoose.model('User', userSchema);
 
